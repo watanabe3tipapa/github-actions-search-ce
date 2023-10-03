@@ -1,0 +1,52 @@
+name: Release-Test
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  release-published-job:
+    if: github.event.release.target_commitish == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Dump GitHub context
+      #   id: github_context_step
+      #   run: echo '${{ toJSON(github) }}'
+      # - name: Dump job context
+      #   run: echo '${{ toJSON(job) }}'
+      # - name: Dump steps context
+      #   run: echo '${{ toJSON(steps) }}'
+      # - name: Dump runner context
+      #   run: echo '${{ toJSON(runner) }}'
+      # - name: Dump strategy context
+      #   run: echo '${{ toJSON(strategy) }}'
+      # - name: Dump matrix context
+      #   run: echo '${{ toJSON(matrix) }}'
+      - name: echo Step
+        run: |
+          echo 'success'
+
+  exec-test-job:
+    needs: release-published-job
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo Step
+        run: |
+          echo 'success'
+
+  exec-test-job-2:
+    needs: [release-published-job, exec-test-job]
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo Step
+        run: |
+          echo 'success'
+
+  notification:
+    if: always()
+    needs: [release-published-job, exec-test-job, exec-test-job-2]
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo Step
+        run: |
+          echo 'success'

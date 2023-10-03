@@ -1,0 +1,16 @@
+name: Tag-Test
+
+on:
+  push:
+    tags:
+      - 'Release*'
+
+jobs:
+  tag-push-job:
+    # https://docs.github.com/ja/actions/using-jobs/using-conditions-to-control-job-execution
+    if: github.event.base_ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo Step
+        run: |
+          echo 'success'

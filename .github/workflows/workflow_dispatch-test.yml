@@ -1,0 +1,27 @@
+name: Workflow_dispatch-Test
+
+on:
+  # https://qiita.com/chihiro/items/8b2918ceb709cb9079e8
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'タグ名'
+        required: true
+
+jobs:
+  workflow_dispatch-job:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Dump GitHub context
+      #   id: github_context_step
+      #   run: echo '${{ toJSON(github) }}'
+      - name: echo Step
+        run: |
+          echo ${{ github.event.inputs.tag_name }}
+      - name: add Release
+        run: |
+          echo 'ここでリリース作成'
+      - name: Deploy
+        run: |
+          echo 'デプロイ実施'
