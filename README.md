@@ -2,7 +2,7 @@
 
 > GitHub Actionsを検証する試み
 
-# Usage(初回)
+# Usage(first time)
 
 ```
 cp .env.example .env
